@@ -1,0 +1,23 @@
+.grid {
+  display: grid;
+  grid-template-columns: repeat(10, 40px); /* Adjust based on your grid size */
+  grid-template-rows: repeat(10, 40px);
+  gap: 2px;
+}
+
+.grid-row {
+  display: flex;
+  grid-column: 1 / -1;
+}
+
+.grid-square {
+  width: 40px;
+  height: 40px;
+  border: 1px solid #ccc;
+  /* Add more styles as needed */
+}
+
+.grid-square:hover {
+  background-color: lightblue;
+  cursor: pointer;
+}
