@@ -1,13 +1,22 @@
-import React from 'react';
-import Grid from './components/Grid';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
+import Login from './pages/Login'
+import Register from './pages/Register'
+import Dashboard from './pages/Dashboard'
 
-const App = () => {
+function App() {
   return (
-    <div className="App">
-      <h1>Flowchart Builder</h1>
-      <Grid />
-    </div>
-  );
-};
+    <>
+      <Router>
+        <div className='container'>
+          <Routes>
+            <Route path='/' element={<Dashboard />} />
+            <Route path='/login' element={<Login />} />
+            <Route path='/register' element={<Register />} />
+          </Routes>
+        </div>
+      </Router>
+    </>
+  )
+}
 
-export default App;
+export default App
