@@ -2,7 +2,6 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import React, { useCallback } from 'react';
 import {
   ReactFlow,
-  MiniMap,
   Controls,
   Background,
   useNodesState,
@@ -28,7 +27,7 @@ export default function App() {
   );
  
   return (
-    <div style={{ width: '100vw', height: '100vh' }}>
+    <div id="flowchart">
       <ReactFlow
         nodes={nodes}
         edges={edges}
@@ -39,7 +38,6 @@ export default function App() {
         onConnect={onConnect}
       >
         <Controls />
-        <MiniMap />
         <Background variant="dots" gap={50} size={2} />
       </ReactFlow>
     </div> 
