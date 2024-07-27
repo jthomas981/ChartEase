@@ -1,28 +1,39 @@
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
-import React, { useCallback } from 'react';
+import { useCallback, useState } from 'react';
 import {
   ReactFlow,
   Controls,
   Background,
-  useNodesState,
-  useEdgesState,
   addEdge,
+  applyEdgeChanges,
+  applyNodeChanges,
 } from '@xyflow/react';
- 
 import '@xyflow/react/dist/style.css';
- 
+import CustomNode from '../components/CustomNode/CustomNode.js';
+import '../components/CustomNode/custom-node.css'
+
+const nodeTypes = { customNode: CustomNode };
+
 const initialNodes = [
-  { id: '1', position: { x: 0, y: 0 }, data: { label: '1' } },
-  { id: '2', position: { x: 0, y: 100 }, data: { label: '2' } },
+  { id: '1', type: 'customNode', position: { x: 0, y: 0 }, data: { label: '1' } },
+  { id: '2', type: 'customNode', position: { x: 0, y: 100 }, data: { label: '2' } },
 ];
+
 const initialEdges = [{ id: 'e1-2', source: '1', target: '2' }];
+
+export default function Dashboard() {
+  const [nodes, setNodes] = useState(initialNodes);
+  const [edges, setEdges] = useState([]);
  
-export default function App() {
-  const [nodes, setNodes, onNodesChange] = useNodesState(initialNodes);
-  const [edges, setEdges, onEdgesChange] = useEdgesState(initialEdges);
- 
+  const onNodesChange = useCallback(
+    (changes) => setNodes((nds) => applyNodeChanges(changes, nds)),
+    [setNodes],
+  );
+  const onEdgesChange = useCallback(
+    (changes) => setEdges((eds) => applyEdgeChanges(changes, eds)),
+    [setEdges],
+  );
   const onConnect = useCallback(
-    (params) => setEdges((eds) => addEdge(params, eds)),
+    (connection) => setEdges((eds) => addEdge(connection, eds)),
     [setEdges],
   );
  
@@ -36,6 +47,7 @@ export default function App() {
         onNodesChange={onNodesChange}
         onEdgesChange={onEdgesChange}
         onConnect={onConnect}
+        nodeTypes={nodeTypes}
       >
         <Controls />
         <Background variant="dots" gap={50} size={2} />
