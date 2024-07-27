@@ -16,8 +16,10 @@ function CustomNode({ data, isConnectable }) {
         isConnectable={isConnectable}
       />
       <div>
-        <label htmlFor="text">Text:</label>
-        <input id="text" name="text" onChange={onChange} className="nodrag" />
+        <input id="title" name="title" onChange={onChange} className="nodrag"
+        placeholder='Title' maxLength={20}/>
+        <input id="description" name="description" onChange={onChange} className="nodrag" 
+        placeholder='Description'/>
       </div>
       <Handle
         type="source"

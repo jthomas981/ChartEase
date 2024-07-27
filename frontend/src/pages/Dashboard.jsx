@@ -48,6 +48,7 @@ export default function Dashboard() {
         onEdgesChange={onEdgesChange}
         onConnect={onConnect}
         nodeTypes={nodeTypes}
+        fitView
       >
         <Controls />
         <Background variant="dots" gap={50} size={2} />

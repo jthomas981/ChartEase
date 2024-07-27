@@ -6,7 +6,13 @@
   background: white;
 }
 
-.custom-node label {
+.custom-node input#title {
+  display: block;
+  color: #777;
+  font-size: 20px;
+}
+
+.custom-node input#description {
   display: block;
   color: #777;
   font-size: 12px;
