@@ -9,6 +9,7 @@ import {
 } from '@xyflow/react';
 import '@xyflow/react/dist/style.css';
 import CustomNode from '../components/CustomNode/CustomNode.js';
+import ImageUpload from '../components/ImageUpload.jsx';
 import '../components/CustomNode/custom-node.css'
 
 const nodeTypes = { customNode: CustomNode };
@@ -39,6 +40,7 @@ export default function Dashboard() {
  
   return (
     <div id="flowchart">
+      <ImageUpload />
       <ReactFlow
         nodes={nodes}
         edges={edges}

@@ -77,3 +77,11 @@ h3 {
 .header ul li a svg {
   margin-right: 5px;
 }
+
+.image-label {
+  cursor: pointer;
+}
+
+input#image {
+  display: none;
+}
