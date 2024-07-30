@@ -40,7 +40,6 @@ export default function Dashboard() {
  
   return (
     <div id="flowchart">
-      <ImageUpload />
       <ReactFlow
         nodes={nodes}
         edges={edges}

@@ -1,5 +1,6 @@
 import { useCallback } from 'react';
 import { Handle, Position } from '@xyflow/react';
+import ImageUpload from '../ImageUpload';
 
 const handleStyle = { left: 10 };
 
@@ -15,11 +16,12 @@ function CustomNode({ data, isConnectable }) {
         position={Position.Top}
         isConnectable={isConnectable}
       />
-      <div>
+      <div className='node-content'>
         <input id="title" name="title" onChange={onChange} className="nodrag"
         placeholder='Title' maxLength={20}/>
         <input id="description" name="description" onChange={onChange} className="nodrag" 
         placeholder='Description'/>
+        <ImageUpload id={data.label} />
       </div>
       <Handle
         type="source"
