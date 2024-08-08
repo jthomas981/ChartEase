@@ -1,12 +1,13 @@
 const asyncHandler = require('express-async-handler')
 
 const Flowchart = require('../models/flowchartModel')
+const User = require('../models/userModel')
 
 // @desc    Get a user's flowchart.
 // @route   GET /api/flowchart
 // @access  Private
 const getFlowchart = asyncHandler(async (req, res) => {
-  const flowcharts = await Flowchart.find()
+  const flowcharts = await Flowchart.find({ user: req.user.id })
 
   res.status(200).json(flowcharts)
 })
@@ -25,6 +26,7 @@ const setFlowchart = asyncHandler(async (req, res) => {
   }
 
   const flowchart = await Flowchart.create({
+    user: req.user.id,
     content: req.body.content,
     title: req.body.title,
   })
@@ -41,6 +43,19 @@ const updateFlowchart = asyncHandler(async (req, res) => {
   if (!flowchart) {
     res.status(400)
     throw new Error('Flowchart not found.')
+  }
+
+  // Check for user.
+  const user = await User.findById(req.user.id)
+  if (!user) {
+    res.status(401)
+    throw new Error('User not found')
+  }
+
+  // Flowchart user must match logged in user.
+  if (flowchart.user.toString() !== user.id) {
+    res.status(401)
+    throw new Error('User not authorized.')
   }
 
   const updatedFlowchart = await Flowchart.findByIdAndUpdate(
@@ -63,7 +78,20 @@ const deleteFlowchart = asyncHandler(async (req, res) => {
     throw new Error('Flowchart not found.')
   }
 
-  await Flowchart.deleteOne({ _id: req.params.id})
+  // Check for user.
+  const user = await User.findById(req.user.id)
+  if (!user) {
+    res.status(401)
+    throw new Error('User not found')
+  }
+
+  // Flowchart user must match logged in user.
+  if (flowchart.user.toString() !== user.id) {
+    res.status(401)
+    throw new Error('User not authorized.')
+  }
+  
+  await Flowchart.deleteOne({ _id: req.params.id })
 
   res.status(200).json({ id: req.params.id })
 })

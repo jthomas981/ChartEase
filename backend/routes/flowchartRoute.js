@@ -6,8 +6,9 @@ const {
   updateFlowchart, 
   deleteFlowchart 
 } = require('../controllers/flowchartController')
+const { protect } = require('../middleware/authMiddleware')
 
-router.route('/').get(getFlowchart).post(setFlowchart)
-router.route('/:id').put(updateFlowchart).delete(deleteFlowchart)
+router.route('/').get(protect, getFlowchart).post(protect, setFlowchart)
+router.route('/:id').put(protect, updateFlowchart).delete(protect, deleteFlowchart)
 
 module.exports = router
