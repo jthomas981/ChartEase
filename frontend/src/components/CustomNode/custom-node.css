@@ -1,3 +1,7 @@
+#flowchart {
+  height: 75vh;
+}
+
 .custom-node {
   height: 100px;
   border: 1px solid #eee;
