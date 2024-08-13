@@ -1,22 +1,25 @@
 import React, { useState } from "react";
-import { FaTrashAlt } from 'react-icons/fa'
+import { FaTrashAlt, FaUpload, FaImage } from 'react-icons/fa'
 
 // Define a functional component named UploadAndDisplayImage
 const ImageUpload = (id) => {
   // Define a state variable to store the selected image
   const [image, setImage] = useState();
 
-  // Return the JSX for rendering
   return (
     <div className="image-container">
       <label className="image-label" htmlFor={"image" + id}>
-        {image ? <img
-            src={URL.createObjectURL(image)}
-          /> : 
-        <img src='../../public/logo192.png'/>}
+        {image ? 
+          <div>
+            <img src={URL.createObjectURL(image)} />
+            <button onClick={() => setImage(null)}><FaTrashAlt /></button>
+          </div>
+        :
+          <div className="upload">
+            <FaImage /><FaUpload />
+          </div>
+        } 
       </label>
-
-      <button onClick={() => setImage(null)}><FaTrashAlt /></button>
 
       <input
         type="file"

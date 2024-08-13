@@ -11,26 +11,52 @@
 }
 
 .custom-node .node-content {
-  display: flex;
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  grid-template-rows: repeat(2, 1fr);
   height: 100%;
+  width: 100%;
 }
 
-.custom-node input#title {
+.custom-node .node-content .grip-lines {
+  height: 100%;
+  width: 100%;
+}
+
+.custom-node textarea {
   display: block;
   color: #777;
-  font-size: 20px;
-  height: 25px;
+  font-size: 14px;
+  text-align: center;
   height: 100%;
+  grid-row: 1 / 2;
+  grid-column: 1 / 7;
+  resize: none;
+  overflow: auto;
 }
 
 .image-container {
   position: relative;
   width: 50px;
   height: 50px;
+  border: 1px solid #777;
+}
+
+.image-container .upload {
+  position: absolute; 
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
 input[id^="image"] {
-  display: none;
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+  opacity: 0;
 }
 
 .image-label {
@@ -50,7 +76,6 @@ input[id^="image"] {
   background: transparent; /* Make button background transparent */
   border: none; /* Remove button border */
   cursor: pointer; /* Make cursor a pointer */
-  background: #ccc;
 }
 
 .source-handle {

@@ -46,14 +46,13 @@ const updateFlowchart = asyncHandler(async (req, res) => {
   }
 
   // Check for user.
-  const user = await User.findById(req.user.id)
-  if (!user) {
+  if (!req.user) {
     res.status(401)
     throw new Error('User not found')
   }
 
   // Flowchart user must match logged in user.
-  if (flowchart.user.toString() !== user.id) {
+  if (flowchart.user.toString() !== req.user.id) {
     res.status(401)
     throw new Error('User not authorized.')
   }
@@ -79,14 +78,13 @@ const deleteFlowchart = asyncHandler(async (req, res) => {
   }
 
   // Check for user.
-  const user = await User.findById(req.user.id)
-  if (!user) {
+  if (!req.user) {
     res.status(401)
     throw new Error('User not found')
   }
 
   // Flowchart user must match logged in user.
-  if (flowchart.user.toString() !== user.id) {
+  if (flowchart.user.toString() !== req.user.id) {
     res.status(401)
     throw new Error('User not authorized.')
   }

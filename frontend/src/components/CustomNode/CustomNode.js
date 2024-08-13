@@ -1,6 +1,7 @@
-import { useCallback } from 'react';
+import React, { useCallback } from 'react';
 import { Handle, Position } from '@xyflow/react';
 import ImageUpload from '../ImageUpload';
+import { FaGripLines } from 'react-icons/fa';
 
 function CustomNode({ data, isConnectable }) {
   const onChange = useCallback((evt) => {
@@ -9,6 +10,7 @@ function CustomNode({ data, isConnectable }) {
 
   return (
     <div className="custom-node">
+      {/* Target Handles */}
       <Handle
         className="target-handle"
         type="target"
@@ -21,11 +23,32 @@ function CustomNode({ data, isConnectable }) {
         position={Position.Left}
         isConnectable={isConnectable}
       />
-      <div className='node-content'>
-        <input id="title" name="title" onChange={onChange} className="nodrag"
-        placeholder='Title' maxLength={20}/>
-        <ImageUpload id={data.label} />
+
+      {/* Node Content */}
+      <div className="node-content">
+        {/* Multi-line Input */}
+        <textarea
+          id="title"
+          name="title"
+          onChange={onChange}
+          className="nodrag"
+          placeholder="Title"
+          maxLength={150} // Adjusted maxLength for textarea
+        />
+        
+        <div className="grip-lines">
+          <FaGripLines />
+        </div>
+        <ImageUpload id={`${data.label}-1`} />
+        <ImageUpload id={`${data.label}-2`} />
+        <ImageUpload id={`${data.label}-3`} />
+        <ImageUpload id={`${data.label}-4`} />
+        <div className="grip-lines">
+          <FaGripLines />
+        </div>
       </div>
+
+      {/* Source Handles */}
       <Handle
         className="source-handle"
         type="source"
