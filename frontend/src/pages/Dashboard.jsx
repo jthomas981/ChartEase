@@ -1,4 +1,4 @@
-import { useCallback, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import {
   ReactFlow,
   ReactFlowProvider,
@@ -12,7 +12,6 @@ import {
 } from '@xyflow/react';
 import '@xyflow/react/dist/style.css';
 import CustomNode from '../components/CustomNode/CustomNode.js';
-import ImageUpload from '../components/ImageUpload.jsx';
 import '../components/CustomNode/custom-node.css'
 
 const flowKey = 'example-flow';
@@ -33,7 +32,21 @@ function Dashboard() {
   const [edges, setEdges] = useState([]);
   const [rfInstance, setRfInstance] = useState(null);
   const { setViewport } = useReactFlow();
- 
+  const [nodeName, setNodeName] = useState('Node 1');
+  const [nodeBg, setNodeBg] = useState('#eee');
+  const [selectedNodeId, setSelectedNodeId] = useState('1');
+  const [nodeHidden, setNodeHidden] = useState(false);
+
+  const onNodeDragStart = useCallback((event, node) => {
+    setSelectedNodeId(node.id);
+    const selectedNode = nodes.find(n => n.id === node.id);
+    if (selectedNode) {
+      setNodeName(selectedNode.data.label);
+      setNodeBg(selectedNode.style?.backgroundColor || '#eee');
+      setNodeHidden(selectedNode.hidden || false);
+    }
+  }, []);
+
   const onNodesChange = useCallback(
     (changes) => setNodes((nds) => applyNodeChanges(changes, nds)),
     [setNodes],
@@ -84,9 +97,86 @@ function Dashboard() {
     setNodes((nds) => nds.concat(newNode));
   }, [setNodes]);
  
+  useEffect(() => {
+    setNodes((nds) =>
+      nds.map((node) => {
+        if (node.id === selectedNodeId) {
+          // it's important that you create a new node object
+          // in order to notify react flow about the change
+          return {
+            ...node,
+            data: {
+              ...node.data,
+              label: nodeName,
+            },
+            style: {
+              ...node.style,
+              backgroundColor: nodeBg,
+            },
+            hidden: nodeHidden,
+          };
+        }
+        return node;
+      }),
+    );
+    setEdges((eds) =>
+      eds.map((edge) => {
+        if (edge.source === selectedNodeId || edge.target === selectedNodeId) {
+          return {
+            ...edge,
+            hidden: nodeHidden,
+          };
+        }
+        return edge;
+      })
+    );
+  }, [nodeName, nodeBg, nodeHidden, selectedNodeId, setNodes, setEdges]);
+
+  const handleNodeChange = (evt) => {
+    const newSelectedNodeId = evt.target.value;
+    setSelectedNodeId(newSelectedNodeId);
+    const selectedNode = nodes.find(node => node.id === newSelectedNodeId);
+
+    // Update nodeName with the label of the selected node
+    if (selectedNode) {
+      setNodeName(selectedNode.data.label);
+    }
+  };
 
   return (
     <div id="flowchart">
+      <div className="updatenode__controls">
+        <label>Select Node:</label>
+        <select value={selectedNodeId} onChange={handleNodeChange}>
+          {nodes.map(node => (
+            <option key={node.id} value={node.id}>
+              {node.data.label}
+            </option>
+          ))}
+        </select>
+
+        <label>Label:</label>
+        <input
+          value={nodeName}
+          onChange={(evt) => setNodeName(evt.target.value)}
+        />
+
+        <label className="updatenode__bglabel">Background:</label>
+        <input
+          type="color"
+          value={nodeBg}
+          onChange={(evt) => setNodeBg(evt.target.value)}
+        />
+
+        <div className="updatenode__checkboxwrapper">
+          <label>Hidden:</label>
+          <input
+            type="checkbox"
+            checked={nodeHidden}
+            onChange={(evt) => setNodeHidden(evt.target.checked)}
+          />
+        </div>
+      </div>
       <ReactFlow
         nodes={nodes}
         edges={edges}
@@ -95,6 +185,7 @@ function Dashboard() {
         onNodesChange={onNodesChange}
         onEdgesChange={onEdgesChange}
         onConnect={onConnect}
+        onNodeDragStart={onNodeDragStart}
         onInit={setRfInstance}
         nodeTypes={nodeTypes}
         fitView
