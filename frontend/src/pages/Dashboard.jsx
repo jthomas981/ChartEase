@@ -32,19 +32,17 @@ function Dashboard() {
   const [edges, setEdges] = useState([]);
   const [rfInstance, setRfInstance] = useState(null);
   const { setViewport } = useReactFlow();
-  const [nodeName, setNodeName] = useState('Node 1');
+  const [nodeName, setNodeName] = useState('1');
   const [nodeBg, setNodeBg] = useState('#eee');
   const [selectedNodeId, setSelectedNodeId] = useState('1');
   const [nodeHidden, setNodeHidden] = useState(false);
 
   const onNodeDragStart = useCallback((event, node) => {
     setSelectedNodeId(node.id);
-    const selectedNode = nodes.find(n => n.id === node.id);
-    if (selectedNode) {
-      setNodeName(selectedNode.data.label);
-      setNodeBg(selectedNode.style?.backgroundColor || '#eee');
-      setNodeHidden(selectedNode.hidden || false);
-    }
+    console.log(node)
+    setNodeName(node.data.label);
+    setNodeBg(node.style?.backgroundColor || '#eee');
+    setNodeHidden(node.hidden || false);
   }, []);
 
   const onNodesChange = useCallback(
@@ -140,6 +138,8 @@ function Dashboard() {
     // Update nodeName with the label of the selected node
     if (selectedNode) {
       setNodeName(selectedNode.data.label);
+      setNodeBg(selectedNode.style?.backgroundColor || '#eee');
+      setNodeHidden(selectedNode.hidden || false);
     }
   };
 
