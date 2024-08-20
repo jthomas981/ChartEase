@@ -5,12 +5,18 @@
 }
 
 .custom-node {
-  height: 200px;
-  width: 400px;
-  padding: 5px;
+  width: 100px;
+  height: 100px;
 }
 
 .custom-node .node-content {
+  transform: translate(-50%, -50%) rotate(45deg);
+  background: #000;
+  left: 50%;
+  top: 50%;
+  border: 1px solid #222;
+  border-radius: 2px;
+  position: absolute;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -26,10 +32,11 @@
   border: 1px solid #ccc;
   text-align: center;
   color: #777;
-  font-size: 14px;
+  font-size: 8px;
   border-radius: 2px;
   resize: none;
   cursor: help;
+  transform: rotate(-45deg);
 }
 
 .image-container {
@@ -82,4 +89,24 @@ input[id^="image"] {
 
 .target-handle {
   background: #0000ff;
+}
+
+
+#diamond-narrow {
+  width: 0;
+  height: 0;
+  border: 50px solid transparent;
+  border-bottom: 70px solid red;
+  position: relative;
+  top: -50px;
+}
+#diamond-narrow:after {
+  content: '';
+  position: absolute;
+  left: -50px;
+  top: 70px;
+  width: 0;
+  height: 0;
+  border: 50px solid transparent;
+  border-top: 70px solid red;
 }

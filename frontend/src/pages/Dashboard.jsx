@@ -26,7 +26,7 @@ const nodeTypes = { customNode: CustomNode };
 
 const initialNodes = [
   { id: '1', type: 'customNode', position: { x: 0, y: 0 }, data: { label: '' }, style: { background: '#ffff00' } },
-  { id: '2', type: 'customNode', position: { x: 0, y: 400 }, data: { label: '' }, style: { background: '#ffff00' } },
+  { id: '2', type: 'customNode', position: { x: 0, y: 400 }, data: { label: '' }},
 ];
 
 function Dashboard() {
@@ -42,12 +42,19 @@ function Dashboard() {
   const [nodeLabel, setNodeLabel] = useState(initialNodes[0]?.data?.label);
   const [nodeBg, setNodeBg] = useState('#ffff00');
   const [selectedNodeId, setSelectedNodeId] = useState(initialNodes[0]?.id || '');
+  const [nodeBorder, setNodeBorder] = useState('');
 
   const onNodeDragStart = useCallback((event, node) => {
+    setNodeBorder('2px solid transparent')
+  }, []);
+
+  const onNodeDrag = useCallback((event, node) => {
     setSelectedNodeId(node.id);
+    setNodeBorder('2px solid green')
     setNodeBg(node.style?.background || '#eee');
     setNodeLabel(node.data?.label || '')
-  }, []);
+    console.log(node)
+  })
 
   const onConnect = useCallback(
     (connection) => setEdges((eds) => addEdge(connection, eds)),
@@ -94,7 +101,13 @@ function Dashboard() {
     if (inputRef.current) {
       inputRef.current.focus();
     }
+
+    setNodeBorder('2px dashed blue')
   };
+
+  const squareBackground = () => {
+    setNodeBg('blue')
+  }
  
   useEffect(() => {
     setNodes((nds) =>
@@ -107,6 +120,7 @@ function Dashboard() {
             style: {
               ...node.style,
               background: nodeBg,
+              border: nodeBorder,
             },
             data: {
               ...node.data,
@@ -117,7 +131,7 @@ function Dashboard() {
         return node;
       }),
     );
-  }, [nodeBg, nodeLabel, selectedNodeId, setNodes, setEdges]);
+  }, [nodeBorder, nodeBg, nodeLabel, selectedNodeId, setNodes, setEdges]);
 
   return (
     <div id="flowchart">
@@ -130,6 +144,7 @@ function Dashboard() {
         onEdgesChange={onEdgesChange}
         onConnect={onConnect}
         onNodeDragStart={onNodeDragStart}
+        onNodeDrag={onNodeDrag}
         onInit={setRfInstance}
         nodeTypes={nodeTypes}
         fitView
@@ -146,7 +161,7 @@ function Dashboard() {
         )}
         <Panel>
           <div className="updatenode__controls">
-            <label onClick={handleLabelClick}>Edit Text:</label>
+            <label className='edit-node-text' onClick={handleLabelClick}>Click here to edit the node's text:</label>
             <input
               className='hidden-input'
               type='text'
@@ -154,12 +169,11 @@ function Dashboard() {
               ref={inputRef}
             />
 
-            <label className="updatenode__bglabel">Background:</label>
-            <input
-              type="color"
-              value={nodeBg}
-              onChange={(e) => setNodeBg(e.target.value)}
-            />
+            <label className="updatenode__bglabel">Backgrounds:</label>
+            
+            <button onClick={squareBackground}>Square</button>
+            <button onClick={squareBackground}>Square</button>
+            <button onClick={squareBackground}>Square</button>
 
             <button onClick={onAdd}>add node</button>
           </div>
