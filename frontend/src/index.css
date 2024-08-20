@@ -6,6 +6,11 @@
   box-sizing: border-box;
 }
 
+#flowchart {
+  height: 75vh;
+}
+
+
 body {
   font-family: 'Poppins', sans-serif;
   height: 100vh;
@@ -212,4 +217,11 @@ h3 {
   .heading p {
     font-size: 1.5rem;
   }
+}
+
+.hidden-input {
+  position: absolute; /* Remove from document flow */
+  left: -9999px; /* Move off-screen */
+  opacity: 0; /* Make invisible */
+  pointer-events: none; /* Prevent interaction */
 }

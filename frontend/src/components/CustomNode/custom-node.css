@@ -4,38 +4,32 @@
   box-sizing: border-box;
 }
 
-#flowchart {
-  height: 75vh;
-}
-
 .custom-node {
-  height: 100px;
+  height: 200px;
+  width: 400px;
   padding: 5px;
 }
 
 .custom-node .node-content {
-  display: grid;
-  grid-template-columns: repeat(6, 1fr);
-  grid-template-rows: repeat(2, 1fr);
+  display: flex;
+  align-items: center;
+  justify-content: center;
   height: 100%;
   width: 100%;
 }
 
-.custom-node .node-content .grip-lines {
-  height: 100%;
-  width: 100%;
-}
-
-.custom-node textarea {
+.custom-node .node-content textarea {
   display: block;
+  width: 80%;
+  height: 80%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  text-align: center;
   color: #777;
   font-size: 14px;
-  text-align: center;
-  height: 100%;
-  grid-row: 1 / 2;
-  grid-column: 1 / 7;
+  border-radius: 2px;
   resize: none;
-  overflow: auto;
+  cursor: help;
 }
 
 .image-container {

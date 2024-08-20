@@ -1,70 +1,51 @@
-import React, { useCallback } from 'react';
+import React from 'react';
 import { Handle, Position } from '@xyflow/react';
-import ImageUpload from '../ImageUpload';
-import { FaGripLines } from 'react-icons/fa';
 
-function CustomNode({ data, isConnectable }) {
-  const onChange = useCallback((evt) => {
-    console.log(evt.target.value);
-  }, []);
-
+const CustomNode = ({ data, isConnectable }) => {
   return (
     <div className="custom-node">
+      {/* Node Content */}
+      <div className="node-content">
+        <textarea
+          className='nodrag'
+          value={data.label}
+          placeholder='Edit this node using the control panel above.'
+        />
+      </div>
+
       {/* Target Handles */}
       <Handle
-        className="target-handle"
+        className="target-handle1"
         type="target"
+        id="a"
         position={Position.Top}
         isConnectable={isConnectable}
       />
       <Handle
-        className="target-handle"
+        className="target-handle2"
         type="target"
+        id="b"
         position={Position.Left}
         isConnectable={isConnectable}
       />
-
-      {/* Node Content */}
-      <div className="node-content">
-        {/* Multi-line Input */}
-        <textarea
-          id="title"
-          name="title"
-          onChange={onChange}
-          className="nodrag"
-          placeholder="Title"
-          maxLength={150} // Adjusted maxLength for textarea
-        />
-        
-        <div className="grip-lines">
-          <FaGripLines />
-        </div>
-        <ImageUpload id={`${data.label}-1`} />
-        <ImageUpload id={`${data.label}-2`} />
-        <ImageUpload id={`${data.label}-3`} />
-        <ImageUpload id={`${data.label}-4`} />
-        <div className="grip-lines">
-          <FaGripLines />
-        </div>
-      </div>
 
       {/* Source Handles */}
       <Handle
         className="source-handle"
         type="source"
         position={Position.Right}
-        id="a"
+        id="1"
         isConnectable={isConnectable}
       />
       <Handle
         className="source-handle"
         type="source"
         position={Position.Bottom}
-        id="b"
+        id="2"
         isConnectable={isConnectable}
       />
     </div>
   );
-}
+};
 
 export default CustomNode;
