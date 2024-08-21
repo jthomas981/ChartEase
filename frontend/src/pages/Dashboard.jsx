@@ -15,18 +15,19 @@ import {
 import { useSelector } from 'react-redux'
 
 import '@xyflow/react/dist/style.css';
-import CustomNode from '../components/CustomNode/CustomNode.js';
-import '../components/CustomNode/custom-node.css'
+
+import DecisionNode from '../components/Decision/DecisionNode.js'
+import '../components/Decision/decision-node.css'
 
 const flowKey = 'example-flow';
 
 const getNodeId = () => `randomnode_${+new Date()}`;
 
-const nodeTypes = { customNode: CustomNode };
+const nodeTypes = { decisionNode: DecisionNode };
 
 const initialNodes = [
-  { id: '1', type: 'customNode', position: { x: 0, y: 0 }, data: { label: '' }, style: { background: '#ffff00' } },
-  { id: '2', type: 'customNode', position: { x: 0, y: 400 }, data: { label: '' }},
+  { id: '1', type: 'decisionNode', position: { x: 0, y: 0 }, data: { label: '' }},
+  { id: '2', type: 'decisionNode', position: { x: 0, y: 400 }, data: { label: '' }},
 ];
 
 function Dashboard() {
@@ -40,18 +41,25 @@ function Dashboard() {
   const { setViewport } = useReactFlow();
 
   const [nodeLabel, setNodeLabel] = useState(initialNodes[0]?.data?.label);
-  const [nodeBg, setNodeBg] = useState('#ffff00');
   const [selectedNodeId, setSelectedNodeId] = useState(initialNodes[0]?.id || '');
-  const [nodeBorder, setNodeBorder] = useState('');
+  const [borderClass, setBorderClass] = useState('');
 
   const onNodeDragStart = useCallback((event, node) => {
-    setNodeBorder('2px solid transparent')
+    setBorderClass('')
   }, []);
 
   const onNodeDrag = useCallback((event, node) => {
     setSelectedNodeId(node.id);
-    setNodeBorder('2px solid green')
-    setNodeBg(node.style?.background || '#eee');
+    
+    // Select the green border based upon the node type.
+    if (node.type === 'processNode') {
+      setBorderClass('process-green-border')
+    } else if (node.type === 'decisionNode') {
+      setBorderClass('decision-green-border')
+    } else if (node.type === 'start/endNode') {
+      setBorderClass('start/end-green-border')
+    }
+
     setNodeLabel(node.data?.label || '')
     console.log(node)
   })
@@ -86,13 +94,11 @@ function Dashboard() {
   const onAdd = useCallback(() => {
     const newNode = {
       id: getNodeId(),
-      type: 'customNode',
       position: {
         x: (Math.random() - 0.5) * 400,
         y: (Math.random() - 0.5) * 400,
       },
       data: { label: '' },
-      style: { background: '#ffff00' },
     };
     setNodes((nds) => nds.concat(newNode));
   }, [setNodes]);
@@ -102,26 +108,24 @@ function Dashboard() {
       inputRef.current.focus();
     }
 
-    setNodeBorder('2px dashed blue')
+    // Select the blue border based upon the node type.
+    const node = nodes.find(node => node.id === selectedNodeId)
+    if (node.type === 'processNode') {
+      setBorderClass('process-blue-border')
+    } else if (node.type === 'decisionNode') {
+      setBorderClass('decision-blue-border')
+    } else if (node.type === 'start/endNode') {
+      setBorderClass('start/end-blue-border')
+    }
   };
 
-  const squareBackground = () => {
-    setNodeBg('blue')
-  }
- 
   useEffect(() => {
     setNodes((nds) =>
       nds.map((node) => {
         if (node.id === selectedNodeId) {
-          // it's important that you create a new node object
-          // in order to notify react flow about the change
           return {
             ...node,
-            style: {
-              ...node.style,
-              background: nodeBg,
-              border: nodeBorder,
-            },
+            className: borderClass,
             data: {
               ...node.data,
               label: nodeLabel,
@@ -131,7 +135,7 @@ function Dashboard() {
         return node;
       }),
     );
-  }, [nodeBorder, nodeBg, nodeLabel, selectedNodeId, setNodes, setEdges]);
+  }, [borderClass, nodeLabel, selectedNodeId, setNodes, setEdges]);
 
   return (
     <div id="flowchart">
@@ -169,11 +173,11 @@ function Dashboard() {
               ref={inputRef}
             />
 
-            <label className="updatenode__bglabel">Backgrounds:</label>
+            <label className="updatenode__bglabel">Nodes:</label>
             
-            <button onClick={squareBackground}>Square</button>
-            <button onClick={squareBackground}>Square</button>
-            <button onClick={squareBackground}>Square</button>
+            <button>Square</button>
+            <button>Square</button>
+            <button>Square</button>
 
             <button onClick={onAdd}>add node</button>
           </div>
