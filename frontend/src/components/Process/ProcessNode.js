@@ -1,9 +1,9 @@
 import React from 'react';
 import { Handle, Position } from '@xyflow/react';
 
-const DecisionNode = ({ data, isConnectable }) => {
+const ProcessNode = ({ data, isConnectable }) => {
   return (
-    <div className="decision-node">
+    <div className="process-node">
       {/* Node Content */}
       <div className="node-content">
         <textarea
@@ -47,4 +47,4 @@ const DecisionNode = ({ data, isConnectable }) => {
   );
 };
 
-export default DecisionNode;
+export default ProcessNode;

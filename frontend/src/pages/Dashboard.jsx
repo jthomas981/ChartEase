@@ -18,16 +18,21 @@ import '@xyflow/react/dist/style.css';
 
 import DecisionNode from '../components/Decision/DecisionNode.js'
 import '../components/Decision/decision-node.css'
+import ProcessNode from '../components/Process/ProcessNode.js'
+import '../components/Process/process-node.css'
 
 const flowKey = 'example-flow';
 
 const getNodeId = () => `randomnode_${+new Date()}`;
 
-const nodeTypes = { decisionNode: DecisionNode };
+const nodeTypes = { 
+  decisionNode: DecisionNode,
+  processNode: ProcessNode,
+};
 
 const initialNodes = [
   { id: '1', type: 'decisionNode', position: { x: 0, y: 0 }, data: { label: '' }},
-  { id: '2', type: 'decisionNode', position: { x: 0, y: 400 }, data: { label: '' }},
+  { id: '2', type: 'processNode', position: { x: 0, y: 400 }, data: { label: '' }},
 ];
 
 function Dashboard() {
@@ -143,7 +148,7 @@ function Dashboard() {
         nodes={nodes}
         edges={edges}
         snapToGrid
-	      snapGrid={[50, 50]}
+	      snapGrid={[25, 25]}
         onNodesChange={onNodesChange}
         onEdgesChange={onEdgesChange}
         onConnect={onConnect}
@@ -183,7 +188,7 @@ function Dashboard() {
           </div>
         </Panel>
         <Controls />
-        <Background variant="dots" gap={50} size={2} />
+        <Background variant="dots" gap={25} size={2} />
       </ReactFlow>
     </div> 
   );
