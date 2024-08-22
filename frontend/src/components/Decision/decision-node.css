@@ -11,7 +11,7 @@
 
 .decision-node .node-content {
   transform: translate(-50%, -50%) rotate(45deg);
-  background: #000;
+  background: linear-gradient(145deg, #000000, #656565);
   left: 50%;
   top: 50%;
   border-radius: 2px;
@@ -21,6 +21,7 @@
   justify-content: center;
   height: 100%;
   width: 100%;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 .decision-node .node-content textarea {

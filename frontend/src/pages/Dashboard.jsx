@@ -20,6 +20,8 @@ import DecisionNode from '../components/Decision/DecisionNode.js'
 import '../components/Decision/decision-node.css'
 import ProcessNode from '../components/Process/ProcessNode.js'
 import '../components/Process/process-node.css'
+import TerminalNode from '../components/Terminal/TerminalNode.js';
+import '../components/Terminal/terminal-node.css'
 
 const flowKey = 'example-flow';
 
@@ -28,11 +30,13 @@ const getNodeId = () => `randomnode_${+new Date()}`;
 const nodeTypes = { 
   decisionNode: DecisionNode,
   processNode: ProcessNode,
+  terminalNode: TerminalNode,
 };
 
 const initialNodes = [
   { id: '1', type: 'decisionNode', position: { x: 0, y: 0 }, data: { label: '' }},
   { id: '2', type: 'processNode', position: { x: 0, y: 400 }, data: { label: '' }},
+  { id: '3', type: 'terminalNode', position: { x: 0, y: 400 }, data: { label: '' }},
 ];
 
 function Dashboard() {
@@ -61,8 +65,8 @@ function Dashboard() {
       setBorderClass('process-green-border')
     } else if (node.type === 'decisionNode') {
       setBorderClass('decision-green-border')
-    } else if (node.type === 'start/endNode') {
-      setBorderClass('start/end-green-border')
+    } else if (node.type === 'terminalNode') {
+      setBorderClass('terminal-green-border')
     }
 
     setNodeLabel(node.data?.label || '')
@@ -119,8 +123,8 @@ function Dashboard() {
       setBorderClass('process-blue-border')
     } else if (node.type === 'decisionNode') {
       setBorderClass('decision-blue-border')
-    } else if (node.type === 'start/endNode') {
-      setBorderClass('start/end-blue-border')
+    } else if (node.type === 'terminalNode') {
+      setBorderClass('terminal-blue-border')
     }
   };
 

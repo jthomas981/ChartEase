@@ -1,13 +1,12 @@
 import React from 'react';
 import { Handle, Position } from '@xyflow/react';
 
-const CustomNode = ({ data, isConnectable }) => {
+const TerminalNode = ({ data, isConnectable }) => {
   return (
-    <div className="custom-node">
+    <div className="terminal-node">
       {/* Node Content */}
       <div className="node-content">
         <textarea
-          className='nodrag'
           value={data.label}
           placeholder='Edit this node using the control panel above.'
         />
@@ -15,14 +14,14 @@ const CustomNode = ({ data, isConnectable }) => {
 
       {/* Target Handles */}
       <Handle
-        className="target-handle1"
+        className="target-handle"
         type="target"
         id="a"
         position={Position.Top}
         isConnectable={isConnectable}
       />
       <Handle
-        className="target-handle2"
+        className="target-handle"
         type="target"
         id="b"
         position={Position.Left}
@@ -48,4 +47,4 @@ const CustomNode = ({ data, isConnectable }) => {
   );
 };
 
-export default CustomNode;
+export default TerminalNode;

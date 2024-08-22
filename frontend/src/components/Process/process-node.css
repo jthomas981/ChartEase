@@ -10,12 +10,14 @@
 }
 
 .process-node .node-content {
-  background: blue;
+  background: linear-gradient(145deg, #FF7F50, #fca586);
   display: flex;
   align-items: center;
   justify-content: center;
   height: 100%;
   width: 100%;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  border-radius: 5px;
 }
 
 .process-node .node-content textarea {
@@ -92,8 +94,10 @@ input[id^="image"] {
 
 .process-green-border {
   border: 3px dashed green;
+  border-radius: 5px;
 }
 
 .process-blue-border {
   border: 3px dashed blue;
+  border-radius: 5px;
 }
