@@ -100,9 +100,10 @@ function Dashboard() {
     restoreFlow();
   }, [setNodes, setViewport]);
 
-  const onAdd = useCallback(() => {
+  const addNode = useCallback((type) => {
     const newNode = {
       id: getNodeId(),
+      type,
       position: {
         x: (Math.random() - 0.5) * 400,
         y: (Math.random() - 0.5) * 400,
@@ -162,33 +163,55 @@ function Dashboard() {
         nodeTypes={nodeTypes}
         fitView
       >
-        {user ? (
-          <Panel position="top-right">
-            <button onClick={onSave}>save</button>
-            <button onClick={onRestore}>restore</button>
-          </Panel>
-        ) : (
-          <Panel position='top-right'>
-            <p>Please login in to save your flowchart.</p>
-          </Panel>
-        )}
         <Panel>
-          <div className="updatenode__controls">
-            <label className='edit-node-text' onClick={handleLabelClick}>Click here to edit the node's text:</label>
-            <input
-              className='hidden-input'
-              type='text'
-              onChange={(e) => setNodeLabel(e.target.value)}
-              ref={inputRef}
-            />
+          <div className="node-control-panel">
+            <div className="edit-node-text">
+              <label onClick={handleLabelClick}>Click here to edit the node's text:</label>
+              <input
+                className='hidden-input'
+                type='text'
+                onChange={(e) => setNodeLabel(e.target.value)}
+                ref={inputRef}
+              />
+            </div>
 
-            <label className="updatenode__bglabel">Nodes:</label>
+            <div className="add-node">
+              <label>Click to add nodes:</label>
+              <div className="add-node-buttons">
+                <button onClick={() => addNode('processNode')}>
+                  <img 
+                    height={50}
+                    width={100}
+                    src='processNode.png'
+                  />
+                </button>
+                <button onClick={() => addNode('decisionNode')}>
+                  <img 
+                    height={50}
+                    width={50}
+                    src='decisionNode.png'
+                  />
+                </button>
+                <button onClick={() => addNode('terminalNode')}>
+                  <img 
+                    height={50}
+                    width={100}
+                    src='terminalNode.png'
+                  />
+                </button>
+              </div>
+            </div>
+
             
-            <button>Square</button>
-            <button>Square</button>
-            <button>Square</button>
 
-            <button onClick={onAdd}>add node</button>
+            {user ? (
+              <div className='save-contols'>
+                <button onClick={onSave}>save</button>
+                <button onClick={onRestore}>restore</button>
+              </div>
+            ) : (
+              <p>Please login in to save your flowchart.</p>
+            )}
           </div>
         </Panel>
         <Controls />

@@ -225,7 +225,17 @@ h3 {
   pointer-events: none; /* Prevent interaction */
 }
 
-.edit-node-text {
+.node-control-panel {
+  display: flex;
+  justify-content: space-between;
+  height: 100px;
+  background: #e6e6e6;
+  border-radius: 5px;
+}
+
+.node-control-panel .edit-node-text {
+  height: 100px;
+  width: 200px;
   padding: 5px 10px;
   border: 1px solid #000;
   border-radius: 5px;
@@ -241,6 +251,24 @@ h3 {
   justify-content: center;
 }
 
-.edit-node-text:hover {
-  
+.node-control-panel .edit-node-text:hover {
+  transform: scale(0.98);
+  cursor: pointer;
+}
+
+.node-control-panel .add-node {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.node-control-panel .add-node .add-node-buttons button {
+  background: none;
+	color: inherit;
+	border: none;
+	padding: 0;
+	font: inherit;
+	cursor: pointer;
+	outline: inherit;
 }
