@@ -228,14 +228,53 @@ h3 {
 .node-control-panel {
   display: flex;
   justify-content: space-between;
+  align-items: center;
   height: 100px;
-  background: #e6e6e6;
+  background: #fff;
+  border: 1px solid blue;
   border-radius: 5px;
 }
 
 .node-control-panel .edit-node-text {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   height: 100px;
   width: 200px;
+  padding: 5px;
+}
+
+.node-control-panel .add-node {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  padding: 5px;
+}
+
+.node-control-panel .add-node .add-node-buttons button {
+  background: none;
+	color: inherit;
+	border: none;
+	padding: 2px;
+	font: inherit;
+	cursor: pointer;
+	outline: inherit;
+}
+
+.node-control-panel .login-to-save {
+  padding: 5px;
+}
+
+.node-control-panel .save-controls {
+  padding: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: space-between;
+  flex-direction: column;
+}
+
+.node-control-panel .save-controls button {
   padding: 5px 10px;
   border: 1px solid #000;
   border-radius: 5px;
@@ -249,26 +288,4 @@ h3 {
   display: flex;
   align-items: center;
   justify-content: center;
-}
-
-.node-control-panel .edit-node-text:hover {
-  transform: scale(0.98);
-  cursor: pointer;
-}
-
-.node-control-panel .add-node {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-between;
-}
-
-.node-control-panel .add-node .add-node-buttons button {
-  background: none;
-	color: inherit;
-	border: none;
-	padding: 0;
-	font: inherit;
-	cursor: pointer;
-	outline: inherit;
 }

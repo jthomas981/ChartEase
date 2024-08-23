@@ -166,7 +166,7 @@ function Dashboard() {
         <Panel>
           <div className="node-control-panel">
             <div className="edit-node-text">
-              <label onClick={handleLabelClick}>Click here to edit the node's text:</label>
+              <label className='btn' onClick={handleLabelClick}>Click here to edit the node's text:</label>
               <input
                 className='hidden-input'
                 type='text'
@@ -205,12 +205,12 @@ function Dashboard() {
             
 
             {user ? (
-              <div className='save-contols'>
-                <button onClick={onSave}>save</button>
-                <button onClick={onRestore}>restore</button>
+              <div className='save-controls'>
+                <button className='btn' onClick={onSave}>save</button>
+                <button className='btn' onClick={onRestore}>restore</button>
               </div>
             ) : (
-              <p>Please login in to save your flowchart.</p>
+              <p className='login-to-save'>Please login in to save your flowchart.</p>
             )}
           </div>
         </Panel>
