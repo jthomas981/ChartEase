@@ -7,8 +7,6 @@ import {
   Controls,
   Background,
   addEdge,
-  applyEdgeChanges,
-  applyNodeChanges,
   useReactFlow,
   Panel,
 } from '@xyflow/react';
@@ -17,15 +15,14 @@ import { useSelector } from 'react-redux'
 import '@xyflow/react/dist/style.css';
 
 import DecisionNode from '../components/Decision/DecisionNode.js'
-import '../components/Decision/decision-node.css'
 import ProcessNode from '../components/Process/ProcessNode.js'
-import '../components/Process/process-node.css'
 import TerminalNode from '../components/Terminal/TerminalNode.js';
-import '../components/Terminal/terminal-node.css'
+import CustomEdge from '../components/CustomEdge/CustomEdge.js'
 
 const flowKey = 'example-flow';
 
-const getNodeId = () => `randomnode_${+new Date()}`;
+const getNodeId = () => `${+new Date()}`;
+const getEdgeId = () => `${+new Date()}`;
 
 const nodeTypes = { 
   decisionNode: DecisionNode,
@@ -39,11 +36,19 @@ const initialNodes = [
   { id: '3', type: 'terminalNode', position: { x: 0, y: 400 }, data: { label: '' }},
 ];
 
+const edgeTypes = {
+  custom: CustomEdge,
+};
+
+const initialEdges = [
+  { id: 'e1-2', source: '1', target: '2', type: 'custom', label: 'My Label'},
+];
+
 function Dashboard() {
   const { user } = useSelector((state) => state.auth) 
   
-  const [nodes, setNodes, onNodesChange] = useNodesState(initialNodes);
-  const [edges, setEdges, onEdgesChange] = useEdgesState([]);
+  const [nodes, setNodes, onNodesChange] = useNodesState(initialNodes)
+  const [edges, setEdges, onEdgesChange] = useEdgesState(initialEdges)
 
   const [rfInstance, setRfInstance] = useState(null);
   const inputRef = useRef(null);
@@ -53,11 +58,14 @@ function Dashboard() {
   const [selectedNodeId, setSelectedNodeId] = useState(initialNodes[0]?.id || '');
   const [borderClass, setBorderClass] = useState('');
 
+  const [edgeLabel, setEdgeLabel] = useState('')
+
   const onNodeDragStart = useCallback((event, node) => {
     setBorderClass('')
   }, []);
 
   const onNodeDrag = useCallback((event, node) => {
+    setNodeLabel('')
     setSelectedNodeId(node.id);
     
     // Select the green border based upon the node type.
@@ -74,8 +82,19 @@ function Dashboard() {
   })
 
   const onConnect = useCallback(
-    (connection) => setEdges((eds) => addEdge(connection, eds)),
-    [setEdges],
+    (connection) => {
+      console.log(edgeLabel)
+      
+      const newEdge = {
+        ...connection,
+        type: 'custom',
+        label: edgeLabel, 
+        id: getEdgeId(), 
+      };
+      
+      setEdges((eds) => addEdge(newEdge, eds));
+    },
+    [edgeLabel, setEdges]
   );
 
   const onSave = useCallback(() => {
@@ -120,6 +139,9 @@ function Dashboard() {
 
     // Select the blue border based upon the node type.
     const node = nodes.find(node => node.id === selectedNodeId)
+    if (!node) {
+      return
+    }
     if (node.type === 'processNode') {
       setBorderClass('process-blue-border')
     } else if (node.type === 'decisionNode') {
@@ -161,6 +183,7 @@ function Dashboard() {
         onNodeDrag={onNodeDrag}
         onInit={setRfInstance}
         nodeTypes={nodeTypes}
+        edgeTypes={edgeTypes}
         fitView
       >
         <Panel>
@@ -202,7 +225,12 @@ function Dashboard() {
               </div>
             </div>
 
-            
+            <div className="edge-name-contorls">
+              <label>Enter edge text here:</label>
+              <textarea 
+                onChange={(e) => setEdgeLabel(e.target.value)}
+              />
+            </div>
 
             {user ? (
               <div className='save-controls'>

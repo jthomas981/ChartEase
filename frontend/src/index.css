@@ -262,12 +262,28 @@ h3 {
 	outline: inherit;
 }
 
+.edge-name-contorls {
+  height: 100px;
+  width: 200px;
+}
+
+.edge-name-contorls textarea {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #e6e6e6;
+  border-radius: 5px;
+  margin-bottom: 10px;
+  font-family: inherit;
+}
+
 .node-control-panel .login-to-save {
   padding: 5px;
+  width: 200px;
 }
 
 .node-control-panel .save-controls {
   padding: 5px;
+  width: 200px;
   display: flex;
   justify-content: center;
   align-items: space-between;

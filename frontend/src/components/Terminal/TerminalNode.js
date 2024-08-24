@@ -1,5 +1,6 @@
 import React from 'react';
 import { Handle, Position } from '@xyflow/react';
+import './terminal-node.css'
 
 const TerminalNode = ({ data, isConnectable }) => {
   return (

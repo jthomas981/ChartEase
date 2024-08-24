@@ -1,5 +1,6 @@
 import React from 'react';
 import { Handle, Position } from '@xyflow/react';
+import './process-node.css'
 
 const ProcessNode = ({ data, isConnectable }) => {
   return (

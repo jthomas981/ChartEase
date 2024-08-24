@@ -1,5 +1,6 @@
 import React from 'react';
 import { Handle, Position } from '@xyflow/react';
+import './decision-node.css'
 
 const DecisionNode = ({ data, isConnectable }) => {
   return (

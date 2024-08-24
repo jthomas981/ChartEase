@@ -1,0 +1,14 @@
+/* Style for the edge path */
+.default-edge {
+  stroke: #000; /* Edge color */
+  stroke-width: 2; /* Edge width */
+  fill: none; /* No fill for the edge */
+  stroke-linecap: round; /* Rounded line caps */
+  stroke-linejoin: round; /* Rounded line joins */
+}
+
+/* Optional: Style for edge label text */
+.edge-label {
+  font-size: 12px; /* Font size of the label */
+  fill: #000; /* Label color */
+}
