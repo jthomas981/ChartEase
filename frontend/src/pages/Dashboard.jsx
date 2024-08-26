@@ -19,7 +19,7 @@ import ProcessNode from '../components/Process/ProcessNode.js'
 import TerminalNode from '../components/Terminal/TerminalNode.js';
 import CustomEdge from '../components/CustomEdge/CustomEdge.js'
 
-const flowKey = 'example-flow';
+const flowKey = 'current-flow';
 
 const getNodeId = () => `${+new Date()}`;
 const getEdgeId = () => `${+new Date()}`;
@@ -33,7 +33,6 @@ const nodeTypes = {
 const initialNodes = [
   { id: '1', type: 'decisionNode', position: { x: 0, y: 0 }, data: { label: '' }},
   { id: '2', type: 'processNode', position: { x: 0, y: 400 }, data: { label: '' }},
-  { id: '3', type: 'terminalNode', position: { x: 0, y: 400 }, data: { label: '' }},
 ];
 
 const edgeTypes = {

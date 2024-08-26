@@ -4,6 +4,7 @@ import 'react-toastify/dist/ReactToastify.css'
 import Login from './pages/Login'
 import Register from './pages/Register'
 import Dashboard from './pages/Dashboard'
+import Flowcharts from './pages/Flowcharts'
 import Header from './components/Header'
 
 function App() {
@@ -16,10 +17,11 @@ function App() {
             <Route path='/' element={<Dashboard />} />
             <Route path='/login' element={<Login />} />
             <Route path='/register' element={<Register />} />
+            <Route path='/flowcharts' element={<Flowcharts />} />
           </Routes>
         </div>
       </Router>
-      
+      <ToastContainer />
     </>
   )
 }
