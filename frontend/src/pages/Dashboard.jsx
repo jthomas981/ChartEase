@@ -11,6 +11,7 @@ import {
   Panel,
 } from '@xyflow/react';
 import { useSelector } from 'react-redux'
+import FlowchartForm from '../components/FlowchartForm'
 
 import '@xyflow/react/dist/style.css';
 
@@ -166,6 +167,8 @@ function Dashboard() {
         return node;
       }),
     );
+
+    onSave()
   }, [borderClass, nodeLabel, selectedNodeId, setNodes, setEdges]);
 
   return (
@@ -232,10 +235,7 @@ function Dashboard() {
             </div>
 
             {user ? (
-              <div className='save-controls'>
-                <button className='btn' onClick={onSave}>save</button>
-                <button className='btn' onClick={onRestore}>restore</button>
-              </div>
+              <FlowchartForm />
             ) : (
               <p className='login-to-save'>Please login in to save your flowchart.</p>
             )}

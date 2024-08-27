@@ -230,6 +230,7 @@ h3 {
   justify-content: space-between;
   align-items: center;
   height: 100px;
+  width: 100%;
   background: #fff;
   border: 1px solid blue;
   border-radius: 5px;
@@ -281,27 +282,33 @@ h3 {
   width: 200px;
 }
 
-.node-control-panel .save-controls {
+.node-control-panel section {
   padding: 5px;
+  height: 100px;
   width: 200px;
-  display: flex;
-  justify-content: center;
-  align-items: space-between;
-  flex-direction: column;
 }
 
-.node-control-panel .save-controls button {
-  padding: 5px 10px;
-  border: 1px solid #000;
-  border-radius: 5px;
-  background: #000;
-  color: #fff;
-  font-size: 16px;
-  font-weight: 700;
-  cursor: pointer;
-  text-align: center;
-  appearance: button;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+.node-control-panel section .form-group {
+  padding: 0;
+  margin: 0
+}
+
+@media (max-width: 600px) {
+  .form {
+    width: 90%;
+  }
+
+  .heading h1 {
+    font-size: 2rem;
+  }
+
+  .heading p {
+    font-size: 1.5rem;
+  }
+
+  .node-control-panel {
+    flex-direction: column;
+    height: 100%;
+    width: 200px;
+  }
 }

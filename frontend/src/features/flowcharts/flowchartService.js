@@ -8,8 +8,14 @@ const getFlowchart = async () => {
   return response.data
 }
 
-const createFlowchart = async (flowchartData) => {
-  const response = await axios.post(API_URL, flowchartData)
+const createFlowchart = async (flowchartData, token) => {
+  const config = {
+    headers: {
+      Authorization: `Bearer ${token}`
+    }
+  }
+
+  const response = await axios.post(API_URL, flowchartData, config)
 
   return response.data
 }
