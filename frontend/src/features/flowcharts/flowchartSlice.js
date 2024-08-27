@@ -26,6 +26,19 @@ export const createFlowchart = createAsyncThunk('flowcharts/create',
     }
   })
 
+export const getFlowcharts = createAsyncThunk('flowcharts/getAll', 
+  async (_, thunkAPI) => {
+    try {
+      const token = thunkAPI.getState().auth.user.token
+      return await flowchartService.getFlowcharts(token)
+    } catch (error) {
+      // Try and grab the most specific message inside error.
+      const message = ((error.response && error.response.data 
+        && error.response.data.message) || error.message || error.toString())
+      return thunkAPI.rejectWithValue(message)
+    }
+  })
+
 export const flowchartSlice = createSlice({
   name: 'flowchart',
   initialState,
@@ -43,6 +56,19 @@ export const flowchartSlice = createSlice({
         state.flowcharts.push(action.payload)
       })
       .addCase(createFlowchart.rejected, (state, action) => {
+        state.isLoading = false
+        state.isError = true
+        state.message = action.payload
+      })
+      .addCase(getFlowcharts.pending, (state) => {
+        state.isLoading = true
+      })
+      .addCase(getFlowcharts.fulfilled, (state, action) => {
+        state.isLoading = false
+        state.isSuccess = true
+        state.flowcharts = action.payload
+      })
+      .addCase(getFlowcharts.rejected, (state, action) => {
         state.isLoading = false
         state.isError = true
         state.message = action.payload

@@ -20,6 +20,11 @@ function Header() {
         <Link to='/'>ChartEase</Link>
       </div>
       <ul>
+        <li>
+          <Link to='/flowcharts'>
+            My Flowcharts
+          </Link>
+        </li>
         {user ? (
           <li>
             <button className='btn' onClick={ onLogout }>

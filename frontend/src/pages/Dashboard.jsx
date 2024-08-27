@@ -171,6 +171,10 @@ function Dashboard() {
     onSave()
   }, [borderClass, nodeLabel, selectedNodeId, setNodes, setEdges]);
 
+  useEffect(() => {
+    onRestore();
+  }, [])
+
   return (
     <div id="flowchart">
       <ReactFlow

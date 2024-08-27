@@ -2,8 +2,14 @@ import axios from 'axios'
 
 const API_URL = '/api/flowchart/'
 
-const getFlowchart = async () => {
-  const response = await axios.get(API_URL)
+const getFlowcharts = async (token) => {
+  const config = {
+    headers: {
+      Authorization: `Bearer ${token}`
+    }
+  }
+
+  const response = await axios.get(API_URL, config)
 
   return response.data
 }
@@ -48,7 +54,7 @@ const deleteFlowchart = async (id) => {
 }
 
 const flowchartService = {
-  getFlowchart,
+  getFlowcharts,
   createFlowchart,
   updateFlowchart,
   deleteFlowchart
