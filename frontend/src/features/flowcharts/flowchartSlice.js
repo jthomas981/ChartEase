@@ -39,6 +39,20 @@ export const getFlowcharts = createAsyncThunk('flowcharts/getAll',
     }
   })
 
+// Delete user flowchart.
+export const deleteFlowchart = createAsyncThunk('flowcharts/delete', 
+  async (id, thunkAPI) => {
+    try {
+      const token = thunkAPI.getState().auth.user.token
+      return await flowchartService.deleteFlowchart(id, token)
+    } catch (error) {
+      // Try and grab the most specific message inside error.
+      const message = ((error.response && error.response.data 
+        && error.response.data.message) || error.message || error.toString())
+      return thunkAPI.rejectWithValue(message)
+    }
+  })
+
 export const flowchartSlice = createSlice({
   name: 'flowchart',
   initialState,
@@ -69,6 +83,21 @@ export const flowchartSlice = createSlice({
         state.flowcharts = action.payload
       })
       .addCase(getFlowcharts.rejected, (state, action) => {
+        state.isLoading = false
+        state.isError = true
+        state.message = action.payload
+      })
+      .addCase(deleteFlowchart.pending, (state) => {
+        state.isLoading = true
+      })
+      .addCase(deleteFlowchart.fulfilled, (state, action) => {
+        state.isLoading = false
+        state.isSuccess = true
+        state.flowcharts = state.flowcharts.filter(
+          (flowchart) => flowchart._id !== action.payload.id
+        )
+      })
+      .addCase(deleteFlowchart.rejected, (state, action) => {
         state.isLoading = false
         state.isError = true
         state.message = action.payload

@@ -91,9 +91,21 @@ h3 {
 }
 
 .flowchart-item {
-  display: flex;
-  flex-direction: column;
+  background-color: #f4f4f4;
+  margin: 10px 0;
+  padding: 20px 0 10px;
+  position: relative;
 }
+
+.flowchart-item .close {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  cursor: pointer;
+  border: none;
+  background: none;
+}
+
 
 .form,
 .content {
