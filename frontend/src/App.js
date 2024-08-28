@@ -13,7 +13,7 @@ import axios from 'axios'
 const url1 = `https://bookquest-h8cl.onrender.com/`
 const url2 = `https://environmental-anomalies.onrender.com/`
 const url3 = `https://chartease-o7o7.onrender.com/`
-const interval = 30000; // Interval in milliseconds (30 seconds)
+const interval = 300000; // Interval in milliseconds (300 seconds)
 
 function reloadWebsite() {
   axios.get(url1)

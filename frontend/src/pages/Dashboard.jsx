@@ -78,13 +78,10 @@ function Dashboard() {
     }
 
     setNodeLabel(node.data?.label || '')
-    console.log(node)
   })
 
   const onConnect = useCallback(
-    (connection) => {
-      console.log(edgeLabel)
-      
+    (connection) => {      
       const newEdge = {
         ...connection,
         type: 'custom',
