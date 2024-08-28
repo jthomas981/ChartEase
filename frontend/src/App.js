@@ -12,7 +12,7 @@ import axios from 'axios'
 // This refreshes the server to avoid it shutting down.
 const url1 = `https://bookquest-h8cl.onrender.com/`
 const url2 = `https://environmental-anomalies.onrender.com/`
-const url3 = `https://yourappname.onrender.com/`
+const url3 = `https://chartease-o7o7.onrender.com/`
 const interval = 30000; // Interval in milliseconds (30 seconds)
 
 function reloadWebsite() {
