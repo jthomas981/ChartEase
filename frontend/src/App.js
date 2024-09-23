@@ -8,32 +8,6 @@ import Flowcharts from './pages/Flowcharts'
 import Header from './components/Header'
 import axios from 'axios'
 
-function reloadWebsite() {
-  axios.get(url1)
-    .then(response => {
-      console.log(`Reloaded at ${url1} on ${new Date().toISOString()}: Status Code ${response.status}`);
-    })
-    .catch(error => {
-      console.error(`Error reloading at ${new Date().toISOString()}:`, error.message);
-    })
-  axios.get(url2)
-    .then(response => {
-      console.log(`Reloaded at ${url2} on ${new Date().toISOString()}: Status Code ${response.status}`);
-    })
-    .catch(error => {
-      console.error(`Error reloading at ${new Date().toISOString()}:`, error.message);
-    })
-  axios.get(url3)
-    .then(response => {
-      console.log(`Reloaded at ${url3} on ${new Date().toISOString()}: Status Code ${response.status}`);
-    })
-    .catch(error => {
-      console.error(`Error reloading at ${new Date().toISOString()}:`, error.message);
-    })
-}
-
-setInterval(reloadWebsite, interval);    
-
 function App() {
   return (
     <>
