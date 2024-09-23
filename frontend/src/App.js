@@ -8,13 +8,6 @@ import Flowcharts from './pages/Flowcharts'
 import Header from './components/Header'
 import axios from 'axios'
 
-
-// This refreshes the server to avoid it shutting down.
-const url1 = `https://bookquest-h8cl.onrender.com/`
-const url2 = `https://environmental-anomalies.onrender.com/`
-const url3 = `https://chartease-o7o7.onrender.com/`
-const interval = 300000; // Interval in milliseconds (300 seconds)
-
 function reloadWebsite() {
   axios.get(url1)
     .then(response => {
